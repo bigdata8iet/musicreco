@@ -1,14 +1,17 @@
-package com.iet.bigdata.music;
-import java.io.*;
+package com.iet.bigdata.musicreco.reco;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import com.iet.bigdata.musicreco.reco.model.SongRating;
+import com.iet.bigdata.musicreco.reco.model.UserRating;
+
 
 public class IODemoMain {
-
-
-	public static void main(String args[])throws Exception {
+public static void main(String args[])throws Exception {
 		
 		FileInputStream fs=new FileInputStream("/mnt/data/workspace/music/test/test_6.txt");
 		InputStreamReader isr=new InputStreamReader(fs);

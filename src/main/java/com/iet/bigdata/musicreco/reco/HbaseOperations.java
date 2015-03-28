@@ -1,8 +1,10 @@
-package com.iet.bigdata.music;
+package com.iet.bigdata.musicreco.reco;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.hadoop.conf.Configuration;
@@ -16,6 +18,10 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.util.Bytes;
+
+import com.iet.bigdata.musicreco.reco.model.Model;
+import com.iet.bigdata.musicreco.reco.model.SongRating;
+import com.iet.bigdata.musicreco.reco.model.UserRating;
 
 public class HbaseOperations extends Thread {
 	private static Configuration conf = null;
@@ -85,6 +91,7 @@ public class HbaseOperations extends Thread {
 
 		Set<SongRating> ssr = new HashSet<SongRating>();
 		Scan scan = new Scan(start.pack(res1), end.pack(res2));
+		//scan.setReversed(true);
 		HTable Songtable = getTable(SongRating.class);
 		ResultScanner scanner = Songtable.getScanner(scan);
 
@@ -160,4 +167,40 @@ public class HbaseOperations extends Thread {
 
 		return dataIterator;
 	}
+
+	public static Map<Integer, Integer> Topratedsongs(UserRating start,
+			UserRating end) throws Exception {
+
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		byte[] res1 = new byte[9];
+		byte[] res2 = new byte[9];
+		UserRating ur = new UserRating();
+
+		Scan scan = new Scan(start.pack(res1), end.pack(res2));
+
+		scan.setReversed(true);
+		HTable Usertable = getTable(UserRating.class);
+		ResultScanner scanner = Usertable.getScanner(scan);
+		Integer count = 0;
+		int number = 0;
+		for (Result r : scanner) {
+			ur = UserRating.unpack(r.getRow());
+			count = map.get(ur.getSong_id());
+
+			if (count == null || count == 0)
+				map.put(ur.getSong_id(), 1);
+			else
+				map.put(ur.getSong_id(), count + 1);
+
+			if(number >= 10){
+				break;
+			} else {
+				number++;
+			}
+		}
+		
+		scanner.close();
+		return map;
+	}
+
 }

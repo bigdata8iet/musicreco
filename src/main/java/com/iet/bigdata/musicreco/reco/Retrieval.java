@@ -1,9 +1,12 @@
-package com.iet.bigdata.music;
+package com.iet.bigdata.musicreco.reco;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.hadoop.hbase.util.Bytes;
+
+import com.iet.bigdata.musicreco.reco.model.Model;
+import com.iet.bigdata.musicreco.reco.model.SongRating;
+import com.iet.bigdata.musicreco.reco.model.UserRating;
 
 public class Retrieval {
 

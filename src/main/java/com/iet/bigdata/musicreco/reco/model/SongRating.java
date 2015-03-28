@@ -1,4 +1,4 @@
-package com.iet.bigdata.music;
+package com.iet.bigdata.musicreco.reco.model;
 
 
 public class SongRating extends Model{

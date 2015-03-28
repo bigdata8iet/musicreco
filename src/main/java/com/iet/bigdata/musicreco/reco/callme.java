@@ -1,16 +1,17 @@
-package com.iet.bigdata.music;
+package com.iet.bigdata.musicreco.reco;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import com.iet.bigdata.musicreco.reco.model.SongRating;
+import com.iet.bigdata.musicreco.reco.model.UserRating;
 
 public class callme {
 
@@ -24,7 +25,6 @@ public class callme {
 			UserRating ur1 = new UserRating(0, (byte) 5, 0);
 			UserRating ur2 = new UserRating(0, (byte) 6, 0);
 
-			
 			int i = 0;
 			Map<Integer, Integer> songreco = new HashMap<Integer, Integer>();
 
